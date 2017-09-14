@@ -93,47 +93,48 @@ def send_control(steering_angle, throttle):
         },
         skip_sid=True)
 
+import tensorflow as tf
+with tf.device('/gpu:0'):
+	if __name__ == '__main__':
+	    parser = argparse.ArgumentParser(description='Remote Driving')
+	    parser.add_argument(
+		'model',
+		type=str,
+		help='Path to model h5 file. Model should be on the same path.'
+	    )
+	    parser.add_argument(
+		'image_folder',
+		type=str,
+		nargs='?',
+		default='',
+		help='Path to image folder. This is where the images from the run will be saved.'
+	    )
+	    args = parser.parse_args()
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Remote Driving')
-    parser.add_argument(
-        'model',
-        type=str,
-        help='Path to model h5 file. Model should be on the same path.'
-    )
-    parser.add_argument(
-        'image_folder',
-        type=str,
-        nargs='?',
-        default='',
-        help='Path to image folder. This is where the images from the run will be saved.'
-    )
-    args = parser.parse_args()
+	    # check that model Keras version is same as local Keras version
+	    f = h5py.File(args.model, mode='r')
+	    model_version = f.attrs.get('keras_version')
+	    keras_version = str(keras_version).encode('utf8')
 
-    # check that model Keras version is same as local Keras version
-    f = h5py.File(args.model, mode='r')
-    model_version = f.attrs.get('keras_version')
-    keras_version = str(keras_version).encode('utf8')
+	    if model_version != keras_version:
+		print('You are using Keras version ', keras_version,
+		      ', but the model was built using ', model_version)
 
-    if model_version != keras_version:
-        print('You are using Keras version ', keras_version,
-              ', but the model was built using ', model_version)
+	    model = load_model(args.model)
 
-    model = load_model(args.model)
+	    if args.image_folder != '':
+		print("Creating image folder at {}".format(args.image_folder))
+		if not os.path.exists(args.image_folder):
+		    os.makedirs(args.image_folder)
+		else:
+		    shutil.rmtree(args.image_folder)
+		    os.makedirs(args.image_folder)
+		print("RECORDING THIS RUN ...")
+	    else:
+		print("NOT RECORDING THIS RUN ...")
 
-    if args.image_folder != '':
-        print("Creating image folder at {}".format(args.image_folder))
-        if not os.path.exists(args.image_folder):
-            os.makedirs(args.image_folder)
-        else:
-            shutil.rmtree(args.image_folder)
-            os.makedirs(args.image_folder)
-        print("RECORDING THIS RUN ...")
-    else:
-        print("NOT RECORDING THIS RUN ...")
+	    # wrap Flask application with engineio's middleware
+	    app = socketio.Middleware(sio, app)
 
-    # wrap Flask application with engineio's middleware
-    app = socketio.Middleware(sio, app)
-
-    # deploy as an eventlet WSGI server
-    eventlet.wsgi.server(eventlet.listen(('', 4567)), app)
+	    # deploy as an eventlet WSGI server
+	    eventlet.wsgi.server(eventlet.listen(('', 4567)), app)
