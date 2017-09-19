@@ -38,19 +38,19 @@ My project includes the following files:
 
 You're reading it! and here is a link to my [project notebook](https://github.com/patriciapampanelli/CarND-Behavioral-Cloning-P3/blob/master/CarND-Behavioral-Cloning-P3.ipynb)
 
-####2. Submission includes functional code
+#### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
 python drive.py model.h5
 ```
 
-####3. Submission code is usable and readable
+#### 3. Submission code is usable and readable
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
-###Model Architecture and Training Strategy
+### Model Architecture and Training Strategy
 
-####1. An appropriate model architecture has been employed
+#### 1. An appropriate model architecture has been employed
 
 My model consists of three convolution layers with 5x5 filter sizes and depths 24, 36 and 48 (code lines *). I also used two additional convolution layers with 3x3 filter sizes and depths of 64. The following layers are three fully connected layers with 100, 50, 10 neurons, respectively, and the output layer with 1 neuron.
 
