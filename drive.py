@@ -117,8 +117,7 @@ with tf.device('/gpu:0'):
 	    keras_version = str(keras_version).encode('utf8')
 
 	    if model_version != keras_version:
-		print('You are using Keras version ', keras_version,
-		      ', but the model was built using ', model_version)
+		print('You are using Keras version ', keras_version,', but the model was built using ', model_version)
 
 	    model = load_model(args.model)
 
