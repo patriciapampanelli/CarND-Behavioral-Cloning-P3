@@ -28,7 +28,7 @@ The goals / steps of this project are the following:
 #### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
-* CarND-Behavioral-Cloning-P3 containing the jupyter notebook to create and train the model
+* CarND-Behavioral-Cloning-P3.ipynb containing the jupyter notebook to create and train the model
 * drive.py for driving the car in autonomous mode
 * model_8.h5 containing a trained convolution neural network 
 * writeup_report.md summarizing the results
