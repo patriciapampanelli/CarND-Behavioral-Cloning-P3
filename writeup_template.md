@@ -30,7 +30,7 @@ The goals / steps of this project are the following:
 My project includes the following files:
 * CarND-Behavioral-Cloning-P3 containing the jupyter notebook to create and train the model
 * drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network 
+* model_8.h5 containing a trained convolution neural network 
 * writeup_report.md summarizing the results
 
 You're reading it! and here is a link to my [project notebook](https://github.com/patriciapampanelli/CarND-Behavioral-Cloning-P3/blob/master/CarND-Behavioral-Cloning-P3.ipynb)
@@ -38,7 +38,7 @@ You're reading it! and here is a link to my [project notebook](https://github.co
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
-python drive.py model.h5
+python drive.py model_8.h5
 ```
 
 #### 3. Submission code is usable and readable
